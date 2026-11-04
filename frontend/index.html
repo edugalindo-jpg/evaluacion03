@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AsistenciaPro · Panel de gestión académica</title>
+  <meta name="description" content="Panel profesional para la gestión de alumnos, sesiones de clase y registros de asistencia.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%234f46e5'/%3E%3Cpath d='M18 33l9 9 19-21' fill='none' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ============ Sprite de iconos ============ -->
+<svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.6"/><rect x="14" y="3" width="7" height="7" rx="1.6"/><rect x="3" y="14" width="7" height="7" rx="1.6"/><rect x="14" y="14" width="7" height="7" rx="1.6"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2.5"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+    <symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1.2"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m20 6-11 11-5-5"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 5-5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 19h16"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 3v5h5"/><path d="M3.05 13a9 9 0 1 0 2.53-6.36L3 9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M4 13h4l2 3h4l2-3h4"/><path d="M5.5 4h13l2.5 9v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Z"/></symbol>
+  </defs>
+</svg>
+
+<div class="app">
+  <!-- ============ Sidebar ============ -->
+  <aside class="sidebar" id="sidebar" aria-label="Navegación principal">
+    <div class="brand">
+      <div class="brand-mark"><svg><use href="#i-check"/></svg></div>
+      <div class="brand-text">
+        <strong>Asistencia<span>Pro</span></strong>
+        <small>Gestión académica</small>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <p class="nav-label">Principal</p>
+      <a class="nav-item" href="#/dashboard" data-view="dashboard">
+        <svg><use href="#i-grid"/></svg><span>Dashboard</span>
+      </a>
+
+      <p class="nav-label">Registros</p>
+      <a class="nav-item" href="#/alumnos" data-view="alumnos">
+        <svg><use href="#i-users"/></svg><span>Alumnos</span><span class="nav-count" id="navCountAlumnos">0</span>
+      </a>
+      <a class="nav-item" href="#/sesiones" data-view="sesiones">
+        <svg><use href="#i-calendar"/></svg><span>Sesiones</span><span class="nav-count" id="navCountSesiones">0</span>
+      </a>
+      <a class="nav-item" href="#/asistencias" data-view="asistencias">
+        <svg><use href="#i-clipboard"/></svg><span>Asistencias</span><span class="nav-count" id="navCountAsistencias">0</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="service-card">
+        <p class="service-title">Estado de servicios</p>
+        <ul class="service-list" id="serviceStatus">
+          <li data-service="alumno"><span class="dot"></span> Alumnos <small>:8081</small></li>
+          <li data-service="sesion"><span class="dot"></span> Sesiones <small>:8082</small></li>
+          <li data-service="asistencia"><span class="dot"></span> Asistencias <small>:8083</small></li>
+        </ul>
+      </div>
+      <p class="sidebar-version">v1.0.0 · Spring Boot 3</p>
+    </div>
+  </aside>
+
+  <div class="scrim" id="scrim" hidden></div>
+
+  <!-- ============ Contenido ============ -->
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn only-mobile" id="menuBtn" aria-label="Abrir menú">
+        <svg><use href="#i-menu"/></svg>
+      </button>
+
+      <div class="page-head">
+        <h1 id="pageTitle">Dashboard</h1>
+        <p id="pageSubtitle">Resumen general del sistema de asistencia</p>
+      </div>
+
+      <div class="topbar-actions">
+        <span class="date-chip" id="todayChip"></span>
+        <button class="icon-btn" id="refreshBtn" title="Actualizar datos" aria-label="Actualizar datos">
+          <svg><use href="#i-refresh"/></svg>
+        </button>
+        <button class="icon-btn" id="themeBtn" title="Cambiar tema" aria-label="Cambiar tema">
+          <svg class="icon-theme-light"><use href="#i-moon"/></svg>
+          <svg class="icon-theme-dark"><use href="#i-sun"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="banner" id="offlineBanner" hidden>
+      <svg><use href="#i-alert"/></svg>
+      <div>
+        <strong>No se pudo conectar con algunos servicios</strong>
+        <span id="offlineDetail">Verifica que los tres microservicios estén en ejecución.</span>
+      </div>
+      <button class="btn btn-sm btn-ghost" data-action="retry">Reintentar</button>
+    </div>
+
+    <main class="content" id="content">
+
+      <!-- ---------- Dashboard ---------- -->
+      <section class="view" id="view-dashboard" data-view="dashboard">
+        <div class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow"><svg><use href="#i-shield"/></svg> Panel de control</span>
+            <h2>Control de asistencia académica</h2>
+            <p>Supervisa alumnos, sesiones de clase y registros de asistencia desde un solo lugar.</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" data-action="new-asistencia">
+                <svg><use href="#i-plus"/></svg> Registrar asistencia
+              </button>
+              <button class="btn btn-glass" data-action="go-sesiones">
+                Ver sesiones <svg><use href="#i-arrow-right"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="glow glow-a"></div>
+            <div class="glow glow-b"></div>
+            <div class="hero-ring">
+              <div class="hero-ring-inner">
+                <svg><use href="#i-check-circle"/></svg>
+                <strong id="heroRate">0%</strong>
+                <span>asistencia</span>
+              </div>
+            </div>
+            <div class="float-chip chip-1">
+              <span class="dot dot-green"></span> <span id="heroPresentes">0 presentes</span>
+            </div>
+            <div class="float-chip chip-2">
+              <svg><use href="#i-clock"/></svg> <span id="heroSesiones">0 sesiones</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="kpi-grid" id="kpiGrid"></div>
+
+        <div class="grid-2">
+          <section class="card panel">
+            <header class="panel-head">
+              <div>
+                <h3>Distribución de asistencia</h3>
+                <p>Estado de todos los registros almacenados</p>
+              </div>
+              <span class="pill" id="donutTotal">0 registros</span>
+            </header>
+            <div class="donut-wrap">
+              <div class="donut" id="donut">
+                <div class="donut-hole">
+                  <strong id="donutPct">0%</strong>
+                  <span>asistencia</span>
+                </div>
+              </div>
+              <ul class="legend" id="donutLegend"></ul>
+            </div>
+          </section>
+
+          <section class="card panel">
+            <header class="panel-head">
+              <div>
+                <h3>Actividad por fecha</h3>
+                <p>Registros de asistencia de los últimos días</p>
+              </div>
+              <span class="pill pill-soft"><svg><use href="#i-trend"/></svg> Últimos 7</span>
+            </header>
+            <div class="bars" id="weekBars"></div>
+          </section>
+        </div>
+
+        <div class="grid-2">
+          <section class="card panel">
+            <header class="panel-head">
+              <div>
+                <h3>Últimos registros</h3>
+                <p>Movimientos más recientes</p>
+              </div>
+              <button class="link-btn" data-action="go-asistencias">Ver todo <svg><use href="#i-arrow-right"/></svg></button>
+            </header>
+            <div class="table-wrap table-compact">
+              <table class="data-table">
+                <thead>
+                  <tr><th>Alumno</th><th>Curso</th><th>Fecha</th><th>Estado</th></tr>
+                </thead>
+                <tbody id="recentAsistencias"></tbody>
+              </table>
+            </div>
+            <div class="empty empty-sm" id="recentEmpty" hidden>
+              <svg><use href="#i-inbox"/></svg>
+              <p>Aún no hay asistencias registradas.</p>
+            </div>
+          </section>
+
+          <section class="card panel">
+            <header class="panel-head">
+              <div>
+                <h3>Próximas sesiones</h3>
+                <p>Clases programadas a partir de hoy</p>
+              </div>
+              <button class="link-btn" data-action="go-sesiones">Ver todo <svg><use href="#i-arrow-right"/></svg></button>
+            </header>
+            <ul class="session-list" id="upcomingSessions"></ul>
+            <div class="empty empty-sm" id="upcomingEmpty" hidden>
+              <svg><use href="#i-calendar"/></svg>
+              <p>No hay sesiones programadas.</p>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- ---------- Alumnos ---------- -->
+      <section class="view" id="view-alumnos" data-view="alumnos" hidden>
+        <div class="card panel">
+          <header class="panel-head panel-head-wrap">
+            <div>
+              <h3>Alumnos</h3>
+              <p id="alumnosCount">0 registrados</p>
+            </div>
+            <div class="toolbar">
+              <label class="search">
+                <svg><use href="#i-search"/></svg>
+                <input id="alumnoSearch" type="search" placeholder="Buscar nombre, código o correo" autocomplete="off">
+              </label>
+              <select id="alumnoEstado" class="select" aria-label="Filtrar por estado">
+                <option value="">Todos los estados</option>
+                <option value="true">Activos</option>
+                <option value="false">Inactivos</option>
+              </select>
+              <button class="btn btn-ghost" data-action="export-alumnos">
+                <svg><use href="#i-download"/></svg> Exportar
+              </button>
+              <button class="btn btn-primary" data-action="new-alumno">
+                <svg><use href="#i-plus"/></svg> Nuevo alumno
+              </button>
+            </div>
+          </header>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Alumno</th>
+                  <th>Código</th>
+                  <th>Estado</th>
+                  <th class="ta-right">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="alumnosBody"></tbody>
+            </table>
+          </div>
+          <div class="empty" id="alumnosEmpty" hidden>
+            <svg><use href="#i-users"/></svg>
+            <h4>Sin alumnos para mostrar</h4>
+            <p>Registra el primer alumno o ajusta los filtros de búsqueda.</p>
+            <button class="btn btn-primary btn-sm" data-action="new-alumno">
+              <svg><use href="#i-plus"/></svg> Nuevo alumno
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- Sesiones ---------- -->
+      <section class="view" id="view-sesiones" data-view="sesiones" hidden>
+        <div class="card panel">
+          <header class="panel-head panel-head-wrap">
+            <div>
+              <h3>Sesiones de clase</h3>
+              <p id="sesionesCount">0 programadas</p>
+            </div>
+            <div class="toolbar">
+              <label class="search">
+                <svg><use href="#i-search"/></svg>
+                <input id="sesionSearch" type="search" placeholder="Buscar por curso o código" autocomplete="off">
+              </label>
+              <input id="sesionFecha" class="select" type="date" aria-label="Filtrar por fecha">
+              <button class="btn btn-ghost" data-action="export-sesiones">
+                <svg><use href="#i-download"/></svg> Exportar
+              </button>
+              <button class="btn btn-primary" data-action="new-sesion">
+                <svg><use href="#i-plus"/></svg> Nueva sesión
+              </button>
+            </div>
+          </header>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Curso</th>
+                  <th>Fecha</th>
+                  <th>Horario</th>
+                  <th class="ta-right">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="sesionesBody"></tbody>
+            </table>
+          </div>
+          <div class="empty" id="sesionesEmpty" hidden>
+            <svg><use href="#i-calendar"/></svg>
+            <h4>Sin sesiones para mostrar</h4>
+            <p>Programa una nueva sesión de clase o cambia los filtros.</p>
+            <button class="btn btn-primary btn-sm" data-action="new-sesion">
+              <svg><use href="#i-plus"/></svg> Nueva sesión
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ---------- Asistencias ---------- -->
+      <section class="view" id="view-asistencias" data-view="asistencias" hidden>
+        <div class="card panel">
+          <header class="panel-head panel-head-wrap">
+            <div>
+              <h3>Registro de asistencias</h3>
+              <p id="asistenciasCount">0 registros</p>
+            </div>
+            <div class="toolbar">
+              <select id="filtroAlumno" class="select" aria-label="Filtrar por alumno">
+                <option value="">Todos los alumnos</option>
+              </select>
+              <select id="filtroSesion" class="select" aria-label="Filtrar por sesión">
+                <option value="">Todas las sesiones</option>
+              </select>
+              <select id="filtroEstado" class="select" aria-label="Filtrar por estado">
+                <option value="">Todos los estados</option>
+                <option value="PRESENTE">Presente</option>
+                <option value="TARDANZA">Tardanza</option>
+                <option value="FALTA">Falta</option>
+              </select>
+              <button class="btn btn-ghost" data-action="export-asistencias">
+                <svg><use href="#i-download"/></svg> Exportar
+              </button>
+              <button class="btn btn-primary" data-action="new-asistencia">
+                <svg><use href="#i-plus"/></svg> Nueva asistencia
+              </button>
+            </div>
+          </header>
+
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Alumno</th>
+                  <th>Sesión</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                  <th class="ta-right">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="asistenciasBody"></tbody>
+            </table>
+          </div>
+          <div class="empty" id="asistenciasEmpty" hidden>
+            <svg><use href="#i-clipboard"/></svg>
+            <h4>Sin asistencias para mostrar</h4>
+            <p>Registra la asistencia de un alumno en una sesión o ajusta los filtros.</p>
+            <button class="btn btn-primary btn-sm" data-action="new-asistencia">
+              <svg><use href="#i-plus"/></svg> Nueva asistencia
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <span>AsistenciaPro · Sistema de microservicios</span>
+      <span class="footer-dot"></span>
+      <span>Spring Boot 3 + MySQL</span>
+    </footer>
+  </div>
+</div>
+
+<!-- ============ Modal de formulario ============ -->
+<div class="modal-layer" id="modalLayer" hidden>
+  <div class="modal-backdrop" data-close-modal></div>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <header class="modal-head">
+      <div class="modal-icon" id="modalIcon"><svg><use href="#i-plus"/></svg></div>
+      <div>
+        <h2 id="modalTitle">Nuevo registro</h2>
+        <p id="modalSubtitle">Completa la información solicitada</p>
+      </div>
+      <button class="icon-btn" data-close-modal aria-label="Cerrar">
+        <svg><use href="#i-x"/></svg>
+      </button>
+    </header>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ============ Modal de historial por alumno ============ -->
+<div class="modal-layer" id="historyLayer" hidden>
+  <div class="modal-backdrop" data-close-history></div>
+  <div class="modal modal-lg" role="dialog" aria-modal="true" aria-labelledby="historyTitle">
+    <header class="modal-head">
+      <div class="modal-icon"><svg><use href="#i-history"/></svg></div>
+      <div>
+        <h2 id="historyTitle">Historial de asistencia</h2>
+        <p id="historySubtitle">Registros del alumno seleccionado</p>
+      </div>
+      <button class="icon-btn" data-close-history aria-label="Cerrar">
+        <svg><use href="#i-x"/></svg>
+      </button>
+    </header>
+    <div class="modal-body" id="historyBody"></div>
+  </div>
+</div>
+
+<!-- ============ Modal de confirmación ============ -->
+<div class="modal-layer" id="confirmLayer" hidden>
+  <div class="modal-backdrop" data-close-confirm></div>
+  <div class="modal modal-sm" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="confirm-body">
+      <div class="confirm-icon"><svg><use href="#i-alert"/></svg></div>
+      <h2 id="confirmTitle">¿Eliminar registro?</h2>
+      <p id="confirmText">Esta acción no se puede deshacer.</p>
+    </div>
+    <footer class="modal-foot">
+      <button class="btn btn-ghost" data-close-confirm>Cancelar</button>
+      <button class="btn btn-danger" id="confirmAccept">Sí, eliminar</button>
+    </footer>
+  </div>
+</div>
+
+<div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+<noscript>
+  <div class="noscript">Activa JavaScript para utilizar el panel de gestión.</div>
+</noscript>
+
+<script src="js/app.js"></script>
+</body>
+</html>
