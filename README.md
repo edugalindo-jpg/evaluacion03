@@ -172,9 +172,9 @@ curl -X POST http://localhost:8081/api/alumnos \
   -H "Content-Type: application/json" \
   -d '{
     "codigo": "20260001",
-    "nombres": "Ana Maria",
-    "apellidos": "Perez Lopez",
-    "correo": "ana.perez@tecsup.edu.pe",
+    "nombres": "Alumno Demo Uno",
+    "apellidos": "Ejemplo Uno",
+    "correo": "alumno1@example.invalid",
     "estado": true
   }'
 ```

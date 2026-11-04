@@ -15,12 +15,12 @@ CREATE TABLE IF NOT EXISTS alumnos (
   CONSTRAINT uk_alumno_codigo UNIQUE (codigo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 INSERT IGNORE INTO alumnos (id, codigo, nombres, apellidos, correo, estado) VALUES
-(1, 'A001', 'Ana María', 'Pérez Gómez', 'ana.perez@tecsup.edu.pe', b'1'),
-(2, 'A002', 'Luis Fernando', 'Quispe Rojas', 'luis.quispe@tecsup.edu.pe', b'1'),
-(3, 'A003', 'María Fernanda', 'Torres Silva', 'maria.torres@tecsup.edu.pe', b'1'),
-(4, 'A004', 'Carlos Andrés', 'Ramírez Díaz', 'carlos.ramirez@tecsup.edu.pe', b'1'),
-(5, 'A005', 'Valeria Sofía', 'Mendoza Cruz', 'valeria.mendoza@tecsup.edu.pe', b'1'),
-(6, 'A006', 'Jorge Luis', 'Vargas León', 'jorge.vargas@tecsup.edu.pe', b'0');
+(1, 'A001', 'Alumno Demo Uno', 'Ejemplo Uno', 'alumno1@example.invalid', b'1'),
+(2, 'A002', 'Alumno Demo Dos', 'Ejemplo Dos', 'alumno2@example.invalid', b'1'),
+(3, 'A003', 'Alumno Demo Tres', 'Ejemplo Tres', 'alumno3@example.invalid', b'1'),
+(4, 'A004', 'Alumno Demo Cuatro', 'Ejemplo Cuatro', 'alumno4@example.invalid', b'1'),
+(5, 'A005', 'Alumno Demo Cinco', 'Ejemplo Cinco', 'alumno5@example.invalid', b'1'),
+(6, 'A006', 'Alumno Demo Seis', 'Ejemplo Seis', 'alumno6@example.invalid', b'0');
 
 USE sesion_db;
 CREATE TABLE IF NOT EXISTS sesiones (

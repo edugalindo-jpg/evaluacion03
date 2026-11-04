@@ -958,7 +958,7 @@
             </div>
             <div class="field full">
               <label for="f-correo">Correo electrónico</label>
-              <input class="input" id="f-correo" name="correo" type="email" maxlength="150" value="${esc(alumno?.correo || '')}" placeholder="ana.perez@tecsup.edu.pe" required>
+              <input class="input" id="f-correo" name="correo" type="email" maxlength="150" value="${esc(alumno?.correo || '')}" placeholder="alumno@example.invalid" required>
             </div>
             <div class="form-actions">
               <button type="button" class="btn btn-ghost" data-close-modal>Cancelar</button>
