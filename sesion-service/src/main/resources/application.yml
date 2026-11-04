@@ -1,0 +1,40 @@
+server:
+  port: 8082
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: sesion-service
+
+  datasource:
+    url: "${SESION_DB_URL:jdbc:mysql://localhost:3306/sesion_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Lima}"
+    username: "${DB_USERNAME:root}"
+    password: "${DB_PASSWORD:}"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: sesion-pool
+      maximum-pool-size: 10
+      minimum-idle: 1
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+logging:
+  level:
+    com.tecsup.asistencia.sesion: INFO
+
+app:
+  cors:
+    allowed-origins: "${APP_CORS_ALLOWED_ORIGINS:http://localhost:8083,http://127.0.0.1:8083}"
