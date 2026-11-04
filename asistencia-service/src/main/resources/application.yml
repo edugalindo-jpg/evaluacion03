@@ -1,0 +1,54 @@
+server:
+  port: 8083
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: asistencia-service
+
+  web:
+    resources:
+      static-locations: file:../frontend/,classpath:/static/
+
+  datasource:
+    url: "${ASISTENCIA_DB_URL:jdbc:mysql://localhost:3306/asistencia_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Lima}"
+    username: "${DB_USERNAME:root}"
+    password: "${DB_PASSWORD:}"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: asistencia-pool
+      maximum-pool-size: 10
+      minimum-idle: 1
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: never
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+logging:
+  level:
+    com.tecsup.asistencia.asistencia: INFO
+
+services:
+  alumno:
+    url: "${ALUMNO_SERVICE_URL:http://localhost:8081}"
+  sesion:
+    url: "${SESION_SERVICE_URL:http://localhost:8082}"
+
+app:
+  cors:
+    allowed-origins: "${APP_CORS_ALLOWED_ORIGINS:http://localhost:8083,http://127.0.0.1:8083}"
